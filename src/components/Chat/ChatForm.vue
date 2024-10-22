@@ -1,10 +1,11 @@
 <script setup>
-import { ref } from 'vue';
+import { ref } from 'vue'; // Vergeet niet om 'ref' te importeren
+
+const emit = defineEmits(); // Geen import meer nodig voor defineEmits
 
 const user = ref('');  // Username input
 const message = ref('');  // Message input
 
-// Functie om het bericht te versturen naar de API
 function sendMessage() {
   if (!user.value || !message.value) {
     alert('Both username and message are required');
@@ -31,7 +32,12 @@ function sendMessage() {
     })
     .then(data => {
       console.log('Message sent:', data);
-      // Hier kun je eventueel het bericht aan de lijst toevoegen als je wilt dat de lijst direct bijgewerkt wordt
+      // Emit een event om het nieuwe bericht door te geven
+      emit('message-sent', {
+        _id: data.data.message._id, // Zorg ervoor dat je deze structuur gebruikt
+        user: user.value,
+        text: message.value,
+      });
     })
     .catch(error => {
       console.error('Error sending message:', error);
@@ -52,5 +58,5 @@ function sendMessage() {
 </template>
 
 <style scoped>
-
+/* Voeg hier je stijl toe als dat nodig is */
 </style>

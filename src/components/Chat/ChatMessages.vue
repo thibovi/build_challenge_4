@@ -1,36 +1,38 @@
 <script setup>
-import { onMounted, reactive } from 'vue';
-
-const messages = reactive([]);
-
-// Haal de berichten op zodra de component geladen wordt
-onMounted(() => {
-  fetch('https://build-challenge-3.onrender.com/api/v1/messages')
-    .then(response => {
-      if (!response.ok) {
-        throw new Error('Failed to fetch messages');
-      }
-      return response.json();
-    })
-    .then(data => {
-      // Voeg de berichten toe aan de reactive array
-      messages.push(...data.data.messages);
-    })
-    .catch(error => {
-      console.error('Error fetching messages:', error);
-    });
+// Ontvang de berichten als props
+const props = defineProps({
+  messages: {
+    type: Array,
+    required: true,
+  },
 });
 </script>
 
 <template>
   <h2>Comments</h2>
   <ul>
-    <li v-for="message in messages" :key="message._id">
-      <strong>{{ message.user }}</strong>: {{ message.text }}
+    <li v-for="(message, index) in props.messages" :key="message._id">
+      <strong>{{ message.user }}</strong>: {{ message.text }} <!-- Zorg ervoor dat deze properties correct zijn -->
     </li>
   </ul>
 </template>
 
 <style scoped>
+/* Voeg hier je stijl toe als dat nodig is */
+h2 {
+  font-size: 24px;
+}
 
+ul {
+  list-style-type: none; /* Verwijder de standaard opsommingstekens */
+  padding: 0; /* Verwijder de standaard padding */
+}
+
+li {
+  margin-bottom: 8px; /* Voeg wat ruimte toe tussen de berichten */
+  border: 1px solid #ddd; /* Voeg een rand toe */
+  padding: 10px; /* Voeg wat padding toe */
+  border-radius: 4px; /* Maak de hoeken afgerond */
+  background-color: #f9f9f9; /* Voeg een lichte achtergrondkleur toe */
+}
 </style>
