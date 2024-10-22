@@ -1,7 +1,7 @@
 <script setup>
-import { ref } from 'vue'; // Vergeet niet om 'ref' te importeren
+import { ref } from 'vue';
 
-const emit = defineEmits(); // Geen import meer nodig voor defineEmits
+const emit = defineEmits();
 
 const user = ref('');  // Username input
 const message = ref('');  // Message input
@@ -32,9 +32,9 @@ function sendMessage() {
     })
     .then(data => {
       console.log('Message sent:', data);
-      // Emit een event om het nieuwe bericht door te geven
+      // Emit an event to pass the new message
       emit('message-sent', {
-        _id: data.data.message._id, // Zorg ervoor dat je deze structuur gebruikt
+        _id: data.data.message._id, // Make sure to use this structure
         user: user.value,
         text: message.value,
       });
@@ -43,7 +43,7 @@ function sendMessage() {
       console.error('Error sending message:', error);
     });
 
-  // Wis de velden na het versturen van het bericht
+  // Clear fields after sending the message
   user.value = '';
   message.value = '';
 }
@@ -58,5 +58,5 @@ function sendMessage() {
 </template>
 
 <style scoped>
-/* Voeg hier je stijl toe als dat nodig is */
+/* Add styles if needed */
 </style>

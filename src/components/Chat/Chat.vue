@@ -3,15 +3,15 @@ import { ref, onMounted } from 'vue';
 import ChatMessages from './ChatMessages.vue';
 import ChatForm from './ChatForm.vue';
 
-// Reactive array om berichten op te slaan
+// Reactive array to store messages
 const messages = ref([]);
 
-// Functie om een nieuw bericht toe te voegen aan de lijst
+// Function to add a new message to the list
 function addMessage(newMessage) {
-  messages.value.push(newMessage);
+  messages.value.push(newMessage); // Add new message to the reactive array
 }
 
-// Haal de berichten op bij het laden van de component
+// Fetch messages on component mount
 onMounted(() => {
   fetch('https://build-challenge-3.onrender.com/api/v1/messages')
     .then(response => {
@@ -22,8 +22,7 @@ onMounted(() => {
     })
     .then(data => {
       console.log('Fetched messages:', data);
-      // Voeg de berichten toe aan de reactive array
-      messages.value = data.data.messages; // Zorg ervoor dat dit overeenkomt met je API-structuur
+      messages.value = data.data.messages; // Make sure this matches your API structure
     })
     .catch(error => {
       console.error('Error fetching messages:', error);
@@ -37,5 +36,5 @@ onMounted(() => {
 </template>
 
 <style scoped>
-/* Voeg hier je stijl toe als dat nodig is */
+/* Add any styles needed */
 </style>
