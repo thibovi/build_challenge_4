@@ -13,8 +13,8 @@ const props = defineProps({
 <template>
   <h2>Messages</h2>
   <ul>
-    <li v-for="(message, index) in props.messages" :key="message._id">
-      <strong>{{ message.user }}</strong>: {{ message.text }}
+    <li v-for="(message, index) in messages" :key="message._id">
+      <strong>{{ message.user }}</strong>: {{ message.text }} <!-- Make sure to use message.user and message.text -->
     </li>
   </ul>
 </template>

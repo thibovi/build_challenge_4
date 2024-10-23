@@ -31,21 +31,22 @@ function sendMessage() {
       return response.json();
     })
     .then(data => {
-      console.log('Message sent:', data);
-      // Emit an event to pass the new message
+      console.log('Message sent:', data); // Debug log
+
+      // Emit an event to pass the new message to the parent
       emit('message-sent', {
-        _id: data.data.message._id, // Make sure to use this structure
+        _id: data.data.message._id, // Use the correct ID from the API
         user: user.value,
         text: message.value,
       });
+
+      // Clear input fields after sending the message
+      user.value = '';
+      message.value = '';
     })
     .catch(error => {
       console.error('Error sending message:', error);
     });
-
-  // Clear fields after sending the message
-  user.value = '';
-  message.value = '';
 }
 </script>
 

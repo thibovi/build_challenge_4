@@ -8,6 +8,7 @@ const messages = ref([]);
 
 // Function to add a new message to the list
 function addMessage(newMessage) {
+  console.log('New message to be added:', newMessage); // Debug log
   messages.value.push(newMessage); // Add new message to the reactive array
 }
 
@@ -21,8 +22,8 @@ onMounted(() => {
       return response.json();
     })
     .then(data => {
-      console.log('Fetched messages:', data);
-      messages.value = data.data.messages; // Make sure this matches your API structure
+      console.log('Fetched messages:', data.data.messages); // Debug log
+      messages.value = data.data.messages; // Assign messages from API to the reactive array
     })
     .catch(error => {
       console.error('Error fetching messages:', error);
@@ -31,8 +32,10 @@ onMounted(() => {
 </script>
 
 <template>
+  <div>
     <ChatMessages :messages="messages" />
     <ChatForm @message-sent="addMessage" />
+  </div>
 </template>
 
 <style scoped>
